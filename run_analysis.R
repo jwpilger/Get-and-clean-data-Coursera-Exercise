@@ -39,7 +39,7 @@ names(Activity)<- c("activity")
 
 Subject <- rbind(read.table(file.path(path_name, "train/", "subject_train.txt"),header = FALSE),
 +                read.table(file.path(path_name, "test/" , "subject_test.txt"),header = FALSE))
-names(Subject)<-c("subject_ID")
+names(Subject)<-c("subject")
 
 # Combine  Subject/Activity columns
 
@@ -47,18 +47,17 @@ names(Subject)<-c("subject_ID")
 Features <- rbind(read.table(file.path(path_name, "train", "X_train.txt"),header = FALSE),
 +                 read.table(file.path(path_name, "test" , "X_test.txt" ),header = FALSE))
 Feature_names <- read.table(file.path(path_name, "features.txt"),head=FALSE)[,2]
-names(Features)<- Feature_names
+names(Features)<- as.character(Feature_names)
 #message(str(Activity),str(Subject),str(Features))
 # create a single data frame with all subject,activity and features
-data_comb <- cbind(Subject,Activity,Features)
+data_comb_sub <- cbind(Subject,Activity,Features)
 
 ## search for mean() and std()
 
-Feature_name_list <- grepl("mean\\(\\) | std\\(\\)",Feature_names)
-
-
-selectedNames<-c(as.character(Feature_name_list), "subject", "activity" )
-data_comb<-subset(data_comb,select=selectedNames)
+Feature_name_list <- Feature_names[grepl("(mean|std)\\(\\)",Feature_names)]
+req_cols <-c(as.character(Feature_name_list), "subject", "activity" )
+#message("req columns",req_cols)
+data_comb<- data_comb_sub[,req_cols]
 
 #message("combined data frame ",str(data_comb))
 

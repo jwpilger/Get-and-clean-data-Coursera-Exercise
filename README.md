@@ -25,7 +25,7 @@ The following files were used:
 - 'activity_labels.txt': Links the 6 class labels with their activity name.
 
 From the Test or Train Folder
-- 'test/train/X_train.txt': Test/Training set with 10,299 observations in the combined data frames for 30 subject IDs.  
+- 'test/train/X_train.txt': Test/Training set with 1029 observations in the combined data frames for 30 subject IDs.  
 
 - 'test/train/y_train.txt': Test/Training labels.
 
